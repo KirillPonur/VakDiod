@@ -1,30 +1,36 @@
 import numpy as np 
 import matplotlib.pyplot as plt 
-from matplotlib.ticker import FuncFormatter 
+import pandas as pd
 fig = plt.figure() 
 ax = fig.add_subplot(111) 
 
-x=np.array([1.5,1.456,1.406,1.397,1.372,1.366,1.346,1.339,1.327,1.311,1.301,1.279,1.239,1.224,1.19,1.152,1.155,1.036,0.872]) 
-y=np.array([5.14,4.99,4.62,4.51,4.01,3.86,3.23,3,2.64,2.17,1.98,1.53,0.94,0.79,0.5,0.3,0.18,0.05,0]) 
-# plt.errorbar(x, y, xerr=0.5, yerr=0.01, c='blue', lw=0.5, mfc='white', ms=3) 
-ax.plot(x,y,'ko', color = "rebeccapurple", markersize=4) 
+file = pd.read_excel('../diod.xlsx')
 
-x=np.array([1.5,1.496,1.494,1.489,1.486,1.483,1.482,1.48,1.479,1.477,1.474,1.473,1.465,1.461,1.457,1.451,1.445,1.441,1.435,1.429,1.422,1.414,1.405,1.397,1.388,1.378,1.349,1.325,1.302,1.268,1.218,1.182,0.864]) 
-y=np.array([16.75,16.01,15.62,15.09,14.56,14.24,14.07,13.82,13.59,13.34,13.01,12.76,11.65,11.43,10.97,10.34,9.75,9.34,8.89,8.38,7.81,7.17,6.53,6.06,5.5,4.88,3.61,2.77,2.13,1.44,0.78,0.48,0]) 
-# plt.errorbar(x, y, xerr=0.5, yerr=0.01, c='black', lw=0.5, mfc='white', ms=3) 
-ax.plot(x,y,'ko', color = "cadetblue", markersize=4)  
+plt.figure(1)
+y=file['I_анода15']
+x=file['I_накала15'] 
+ax.plot(x,y,'ko', color = "darkslateblue", markersize=4, 
+        label='$U_{\\text{а}} = 15$ В') 
 
-x=np.array([1.5,1.495,1.493,1.488,1.485,1.483,1.478,1.473,1.465,1.46,1.454,1.449,1.441,1.435,1.43,1.422,1.418,1.411,1.397,1.387,1.372,1.368,1.352,1.327,1.31,1.28,1.262,1.234,1.215,1.197,1.128,0.913]) 
-y=np.array([17.32,16.54,16.15,15.32,15.06,14.67,14.09,13.25,12.42,11.74,11.1,10.59,9.73,9.23,8.76,8.03,7.73,7.15,6.24,5.87,5.04,4.6,3.85,2.93,2.4,1.7,1.35,0.97,0.76,0.6,0.24,0]) 
-# plt.errorbar(x, y, xerr=0.5, yerr=0.01, c='red', lw=0.5, mfc='white', ms=3) 
+y=file['I_анода60']
+x=file['I_накала60'] 
+ax.plot(x,y,'ko', color = "sandybrown", markersize=4, 
+        label='$U_{\\text{а}} = 60$ В') 
 
-ax.plot(x,y,'ko', color = "sandybrown", markersize=4) 
-ax.legend(('$U_a = 15 B$','$U_a = 60 B$','$U_a = 100 B$'))
-plt.title('ВАХ диода при различных напряжениях анода')
-plt.xlabel('$I_n$,A') 
-plt.ylabel('$J_a$,мА') 
-plt.grid () 
-plt.xlim([0.75,1.6]) 
-plt.ylim([-1,20]) 
-plt.savefig('z3123.png',dpi=300)
+y=file['I_анода100']
+x=file['I_накала100'] 
+ax.plot(x,y,'ko', color = "teal", markersize=4, 
+        label='$U_{\\text{а}} = 100$ В') 
+
+plt.xlabel('$J_{\\text{н}}$, В') 
+plt.ylabel('$J_{\\text{а}}$, мА') 
+plt.legend()
+plt.grid(which='major',linestyle='-') 
+plt.grid(which='minor',linestyle=':') 
+plt.minorticks_on()
+plt.savefig('fig4.pdf',bbox_inches="tight")
+
 plt.show()
+
+
+
