@@ -20,7 +20,7 @@ x = 1/T(J)
 y = np.log(J) - 2*np.log(T(J))
 func = np.polyfit(x,y,1)
 phi = func[0]
-print(phi)
+print(phi,func[1])
 approx =  np.poly1d(func)
 e = -1.69e-19 # Кл
 k = +1.38e-23 # Дж*К
